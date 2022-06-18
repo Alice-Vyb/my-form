@@ -37,7 +37,7 @@ function loginUser($email, $password)
     echo "<h1 style='color: red'> LOG ME IN (IMPLEMENT ME) </h1>";
     // //open connection to the database and check if username exist in the database
     $email = $_POST['email'];
-    $password = $_POST['password'];
+    //$password = $_POST['password'];
     $sql = "SELECT * FROM `Students` WHERE `email` = '$email'";
     //if it does, check if the password is the same with what is given
     if (mysqli_query($conn, $sql)) {
