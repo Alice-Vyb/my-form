@@ -16,7 +16,8 @@ function registerUser($fullnames, $email, $password, $gender, $country)
     if ($user) {
         echo "User already existed";
     } else {
-        $query = "INSERT INTO `Students` (`full_names`, `email`, `password`, `gender`, `country`) VALUES ( '$fullnames', '$email', '$password', '$gender', '$country')";
+        $query = "INSERT INTO `Students` (`full_names`, `email`, `password`, `gender`, `country`) 
+        VALUES ( '$fullnames', '$email', '$password', '$gender', '$country')";
 
         if (mysqli_query($conn, $query)) {
             echo "User Successfully registered";
@@ -67,40 +68,15 @@ function resetPassword($email, $password)
     $conn = db();
     // echo "<h1 style='color: red'>RESET YOUR PASSWORD (IMPLEMENT ME)</h1>";
     //open connection to the database and check if username exist in the database      
-    // $email = $_POST['email'];
-    // $password = $_POST['password'];
-    // $exists = $conn->prepare("SELECT * Students WHERE email= ?");
-    // $exists->execute([$email]);
-    // $emailexists = $exists->fetch();
 
-    // if (!$emailexists) {
-    //     echo "<h1 style='color: red'>User does not exist</h1>";
-    // } else {
-    //     $email = $_POST['email'];
-    //     $password = $_POST['password'];
-    //     $conn = db();
-    //     $sql =  "SELECT * FROM `Students` WHERE `email` = '$email'";
-    //     $newpassword = "UPDATE `Students` SET `password` = '$password' WHERE `email` = '$email'";
+    $query = mysqli_query($conn, "SELECT * FROM `students` WHERE `email` = '$email'" );     
+    $row = $query->fetch_assoc();
+    $newpassword = "UPDATE `students` SET `password` = '$password' WHERE `id` = " . $row['id'];
+        if(mysqli_query($conn, $newpassword)){
+           $password = $_POST['password'];
+           echo 'password reset';
+        }
 
-    //     if (mysqli_query($conn, $newpassword)) {
-    //         Header("Location: ../forms/login.html");
-    //     }
-    //     else{
-    //         mysqli_error($conn);
-    //     }
-    //     mysqli_close($conn);
-    // }
-      $query = mysqli_query($conn, "SELECT * FROM `students` WHERE `email` = '$email'" );
-    if(mysqli_num_rows($query)){
-       
-            $row = $query->fetch_assoc();
-            $password = $_POST['password'];
-            $password = "UPDATE `students` SET `password` = '$password' WHERE `id` = " . $row['id'];
-            
-    }
-    else{
-        echo "Email doesn't exit";
-    }
 }
 
 
