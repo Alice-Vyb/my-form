@@ -56,7 +56,6 @@ function loginUser($email, $password)
             header('Location: ../forms/login.html');
         }
         
-        
     }
 }
 
